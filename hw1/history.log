@@ -1,0 +1,9 @@
+list
+cd ..
+ls
+uname -a
+make
+hello
+history
+help
+quit

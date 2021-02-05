@@ -1,0 +1,3 @@
+#ifndef _UABSH_
+const char* const help_mess = "A simple shell uab_sh has the following built-in commands\nlist - lists the contents of the current directory\ncd <dir> - changes the current directory to the specified directory\nhistory - displays the contents of the history.log file\nhelp - displays this message\nquit - terminates the shell\n\nAny command not listed above is assumed to be in a PATH directory\nor in the current working directory or referenced by absolute path.\n";
+#endif

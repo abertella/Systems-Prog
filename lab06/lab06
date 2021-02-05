@@ -1,0 +1,37 @@
+#include <sys/types.h> #include <sys/wait.h> #include <stdlib.h> #include <stdio.h> #include <unistd.h> int main(){
+pid_t justPid, myPid, myParentPid; int exitStatus;
+/* fork new process */
+justPid = fork();
+     if (justPid < 0){
+/* Error occurred - no child process. */
+fprintf( stderr, "Fork failed." );
+return 1;
+}
+if (justPid == 0){
+/* Child process. */
+myPid = getpid();
+myParentPid = getppid();
+printf( "[CHILD]: PID = %d PPID = %d\n", myPid, myParentPid );
+/* Blind loop - signal like SIGINT is needed to exit from process. */
+while ( 1 ){
+/* Empty loop - child process "works" */ ;
+}
+}
+else{
+/* Parent process - the value returned by fork() is child's PID. */
+6
+myPid = getpid();
+myParentPid = getppid();
+printf( "[PARENT]: PID = %d PPID = %d Child's PID = %d\n", \
+     myPid, myParentPid, justPid );
+/* Wait for particular child process end. */
+     waitpid( justPid, &exitStatus, 0 );
+     if(WIFEXITED(exitStatus))
+printf( "[PARENT]: Child process with PID = %d exited with status %d\n", justPid, WEXITSTATUS(exitStatus) );
+     if(WIFSIGNALED(exitStatus))
+printf( "[PARENT]: Child process with PID = %d terminated by signal %d\n", justPid, WTERMSIG(exitStatus) );
+/* Then we can do something more (reminder section). */ while ( 1 ){
+/* Empty loop - parent process "works" */
+;
+} return(0);
+} }
